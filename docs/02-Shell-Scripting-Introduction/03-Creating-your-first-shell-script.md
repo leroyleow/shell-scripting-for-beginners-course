@@ -215,7 +215,7 @@ If the file doesn't exist, it will be created.
 
 That operator is rarely used because commands generally only read from their stdin, though it can come handy in a number of specific situations.
 
-> : Directs the output of a command into a file.
+<b>></b> : Directs the output of a command into a file.
 
 ```
  command > out.txt
@@ -237,7 +237,7 @@ So, to run command on file.txt and save its output in out.txt and any error mess
    command < file.txt > out.txt 2> error.txt
 ```
 
-> | : Does the same as >, but will overwrite the target, even if the shell has been configured to refuse overwriting (with set -C or set -o noclobber).
+<b>>|</b> : Does the same as >, but will overwrite the target, even if the shell has been configured to refuse overwriting (with set -C or set -o noclobber).
 
 ```
  command >| out.txt
@@ -245,7 +245,7 @@ So, to run command on file.txt and save its output in out.txt and any error mess
 
 If out.txt exists, the output of command will replace its content. If it does not exist it will be created.
 
-> > : Does the same as >, except that if the target file exists, the new data are appended.
+<b>>></b> : Does the same as >, except that if the target file exists, the new data are appended.
 
 ```
  command >> out.txt
@@ -253,12 +253,12 @@ If out.txt exists, the output of command will replace its content. If it does no
 
 If out.txt exists, the output of command will be appended to it, after whatever is already in it. If it does not exist it will be created.
 
-> & : (per POSIX spec) when surrounded by digits (1>&2) or - on the right side (1>&-) either redirects only one file descriptor or closes it (>&-).
+<b>>&</b> : (per POSIX spec) when surrounded by digits (1>&2) or - on the right side (1>&-) either redirects only one file descriptor or closes it (>&-).
 > A >& followed by a file descriptor number is a portable way to redirect a file descriptor, and >&- is a portable way to close a file descriptor.
 
 If the right side of this redirection is a file please read the next entry.
 
-> &, &>, >>& and &>> : (read above also) Redirect both standard error and standard output, replacing or appending, respectively.
+>&, &>, >>& and &>> : (read above also) Redirect both standard error and standard output, replacing or appending, respectively.
 
 ```
  command &> out.txt
@@ -274,7 +274,7 @@ As above, except that if out.txt exists, the output and error of command will be
 
 The &> variant originates in bash, while the >& variant comes from csh (decades earlier). They both conflict with other POSIX shell operators and should not be used in portable sh scripts.
 
-<< : A here document. It is often used to print multi-line strings.
+<b><<</b> : A here document. It is often used to print multi-line strings.
 
 ```
   command << WORD
@@ -292,7 +292,7 @@ If you want to pipe the output of command << WORD ... WORD directly into another
   WORD
 ```
 
-<<< : Here strings, similar to here documents, but intended for a single line. These exist only in the Unix port or rc (where it originated), zsh, some implementations of ksh, yash and bash.
+<b><<<</b> : Here strings, similar to here documents, but intended for a single line. These exist only in the Unix port or rc (where it originated), zsh, some implementations of ksh, yash and bash.
 
 ```
  command <<< WORD
