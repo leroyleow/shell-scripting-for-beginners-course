@@ -184,7 +184,40 @@ Any output printed by command1 is passed as input to command2.
 ### A.4 Other list punctuation
 <b>;;</b> is used solely to mark the end of a case statement. Ksh, bash and zsh also support ;& to fall through to the next case and ;;& (not in ATT ksh) to go on and test subsequent cases.
 
-( and ) are used to group commands and launch them in a subshell. { and } also group commands, but do not launch them in a subshell. See this answer for a discussion of the various types of parentheses, brackets and braces in shell syntax.
+( and ) are used to group commands and launch them in a subshell. { and } also group commands, but do not launch them in a subshell. See this answer for a discussion of the various types of parentheses, brackets and braces in shell syntax. 
+
+#### () vs {}
+
+If you want the side-effects of the command list to affect your current shell, use {...}
+If you want to discard any side-effects, use (...)
+
+For example, I might use a subshell if I:
+
+want to alter $IFS for a few commands, but I don't want to alter $IFS globally for the current shell
+cd somewhere, but I don't want to change the $PWD for the current shell
+It's worthwhile to note that parentheses can be used in a function definition:
+
+normal usage: braces: function body executes in current shell; side-effects remain after function completes
+```
+$ count_tmp() { cd /tmp; files=(*); echo "${#files[@]}"; }
+$ pwd; count_tmp; pwd
+/home/jackman
+11
+/tmp
+$ echo "${#files[@]}"
+11 
+```
+unusual usage: parentheses: function body executes in a subshell; side-effects disappear when subshell exits
+```
+$ cd ; unset files
+$ count_tmp() (cd /tmp; files=(*); echo "${#files[@]}")
+$ pwd; count_tmp; pwd
+/home/jackman
+11
+/home/jackman
+$ echo "${#files[@]}"
+0
+```
 
 ## B. Redirection Operators
 POSIX definition of Redirection Operator
