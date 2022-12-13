@@ -5,9 +5,11 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
 # Sections
 
 - [01-Course-Introduction](docs/01-Course-Introduction)
+
   - [01-Course-Introduction](docs/01-Course-Introduction/01-Course-Introduction.md)
 
 - [02-Shell-Scripting-Introduction](docs/02-Shell-Scripting-Introduction)
+
   - [01-Project-Introduction](docs/02-Shell-Scripting-Introduction/01-Project-Introduction.md)
   - [02-Lab-Project-Introduction](docs/02-Shell-Scripting-Introduction/02-Lab-Project-Introduction.md)
   - [03-Creating-your-first-shell-script](docs/02-Shell-Scripting-Introduction/03-Creating-your-first-shell-script.md)
@@ -21,6 +23,7 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
   - [12-Lab-Arithmetic-Operations](docs/02-Shell-Scripting-Introduction/12-Lab-Arithmetic-Operations.md)
 
 - [03-Flow-Control](docs/03-Flow-Control)
+
   - [01-Conditional-Logic](docs/03-Flow-Control/01-Conditional-Logic.md)
   - [02-Lab-Conditional-Logic](docs/03-Flow-Control/02-Lab-Conditional-Logic.md)
   - [03-Loops-For](docs/03-Flow-Control/03-Loops-For.md)
@@ -31,6 +34,7 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
   - [08-Lab-Case-Statements](docs/03-Flow-Control/08-Lab-Case-Statements.md)
 
 - [04-Shebang](docs/04-Shebang)
+
   - [01-Shebang](docs/04-Shebang/01-Shebang.md)
   - [02-Lab-Shebang](docs/04-Shebang/02-Lab-Shebang.md)
   - [03-Exit-Codes](docs/04-Shebang/03-Exit-Codes.md)
@@ -40,9 +44,12 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
   - [07-Tips&Tricks-ShellCheck-&-IDE](docs/04-Shebang/07-Tips&Tricks-ShellCheck-&-IDE.md)
 
 - [05-Project-E-Commerce-Application](docs/05-Project-E-Commerce-Application)
+
   - [01-E-Commerce-Application-Introduction](docs/05-Project-E-Commerce-Application/01-E-Commerce-Application-Introduction.md)
   - [02-Demo-E-Commerce-Application](docs/05-Project-E-Commerce-Application/02-Demo-E-Commerce-Application.md)
   - [03-Project-Hands-On](docs/05-Project-E-Commerce-Application/03-Project-Hands-On.md)
 
 - [06-Architecture](docs/06-Architecture)
-  - [01-Refactor-Functions-From-BigFile-To-SmallFiles](docs/06-Architecture/01-Refactor-Functions-From-BigFile-To-SmallFiles.md)
+  - [01-Refactor-Functions-From-BigFile-To-SmallFiles](docs/06-Architecture/01-Refacto06-r-Functions-From-BigFile-To-SmallFiles.md)
+  - [Linking-Command-Pipes-Input-Output](docs/06-Architecture/02-Linking-Commands-Pipes-Input-Output.md)
+  - [03-Program-Flags-With-Getopts](docs/06-Architecture/03-Program-Flags-With-Getopts.md)
