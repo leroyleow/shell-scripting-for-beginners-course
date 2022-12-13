@@ -43,3 +43,6 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
   - [01-E-Commerce-Application-Introduction](docs/05-Project-E-Commerce-Application/01-E-Commerce-Application-Introduction.md)
   - [02-Demo-E-Commerce-Application](docs/05-Project-E-Commerce-Application/02-Demo-E-Commerce-Application.md)
   - [03-Project-Hands-On](docs/05-Project-E-Commerce-Application/03-Project-Hands-On.md)
+
+- [06-Architecture](docs/06-Architecture)
+  - [01-Refactor-Functions-From-BigFile-To-SmallFiles](docs/06-Architecture/01-Refactor-Functions-From-BigFile-To-SmallFiles.md)
