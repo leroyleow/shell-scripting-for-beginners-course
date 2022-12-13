@@ -51,5 +51,5 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
 
 - [06-Architecture](docs/06-Architecture)
   - [01-Refactor-Functions-From-BigFile-To-SmallFiles](docs/06-Architecture/01-Refacto06-r-Functions-From-BigFile-To-SmallFiles.md)
-  - [Linking-Command-Pipes-Input-Output](docs/06-Architecture/02-Linking-Commands-Pipes-Input-Output.md)
+  - [02-Linking-Command-Pipes-Input-Output](docs/06-Architecture/02-Linking-Commands-Pipes-Input-Output.md)
   - [03-Program-Flags-With-Getopts](docs/06-Architecture/03-Program-Flags-With-Getopts.md)
