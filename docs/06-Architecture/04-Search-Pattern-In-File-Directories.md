@@ -354,6 +354,11 @@ cat ${EM_CSV}
 # Starts to get more complex, but is done without a loop or using cut
 awk 'BEGIN { FS=","; OFS="," } {$5="";gsub(",+",",",$0)}1' OFS=, ${EM_CSV}
 ```
+Note: In the final example, we briefly use AWK to show the power of this utility. In this example, we specify the delimiters (FS and OFS) and then we specify the fifth column alongside the gsub sub command in the AWK language to remove the column or field. Begin specifies the rules AWK shall use when parsing input and if there are multiple rules, the order received is the order executed.
+
+Alternatively, we can print the first column or field using awk 'BEGIN { FS=","} { print $1}'  testdata/employees.csv and even the first occurrence by specifying NR==1 like this: awk ' BEGIN { FS=","} NR==1{ print $1}' . Specifying the number or returned records is very useful when using the grep command and copious amounts of matches are returned.
+
+Note
 
 Doing the same with sed and awk using Example 3
 ```
@@ -368,3 +373,4 @@ echo -n "Forth to sixth character "; sed -r 's/.{3}//;s/.//4g' <<< $STR
 echo -n "Last character by itself "; sed 's/.*\(.$\)/\1/' <<< $STR
 echo -n "Remove last character only "; sed 's/.$//' <<< $STR
 ```
+Note: [What do <<< mean?](https://unix.stackexchange.com/questions/80362/what-does-mean)
