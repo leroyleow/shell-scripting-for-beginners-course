@@ -374,3 +374,198 @@ echo -n "Last character by itself "; sed 's/.*\(.$\)/\1/' <<< $STR
 echo -n "Remove last character only "; sed 's/.$//' <<< $STR
 ```
 Note: [What do <<< mean?](https://unix.stackexchange.com/questions/80362/what-does-mean)
+
+## Using file attributes with conditional logic
+
+* -e: The file exists
+* -f: This is a regular file and not a directory or device file
+* -s: The file is not empty or zero in size
+* -d: This is a directory
+* -r: This has read permissions
+* -w: This has write permissions
+* -x:This has execute permissions
+* -O: This is the owner of the file the current user
+* -G: This executes the user if they have the same group as yours
+* f1 (- nt, -ot, -ef) f2: Refers to if f1 is newer than f2, older than f2, or are hard-linked to the same file
+
+### Example1
+Getting data ready
+```
+$ cd ~/
+$ mkdir -p fileops
+$ touch fileops/empty.txt
+$ echo "abcd1234!!" > fileops/string.txt
+$ echo "yieldswordinthestone" > fileops/swordinthestone.txt
+$ touch fileops/read.txt fileops/write.txt fileops/exec.txt fileops/all.txt
+$ chmod 111 fileops/exec.txt; chmod 222 fileops/write.txt; chmod 444 fileops/read.txt; fileops/all.txt;chmod 777 fileops/all.txt
+$ sudo useradd bob
+$ echo "s the name" > fileops/bobs.txt
+$ sudo chown bob.bob fileops/bobs.txt
+```
+
+Scripts implementation
+```
+#!/bin/bash
+FILE_TO_TEST=""
+
+function permissions() {
+
+  echo -e "\nWhat are our permissions on this $2?\n"
+  if [ -r $1 ]; then 
+    echo -e "[R] Read" 
+  fi
+  if [ -w $1 ]; then 
+    echo -e     "[W] Write" 
+  fi
+  if [ -x $1 ]; then 
+    echo -e "[X] Exec" 
+  fi
+}
+
+function file_attributes() {
+
+  if [ ! -s $1 ]; then
+    echo "\"$1\" is empty" 
+  else 
+    FSIZE=$(stat --printf="%s" $1 2> /dev/null)
+    RES=$?
+    if [ $RES -eq 1 ]; then
+      return
+    else
+      echo "\"$1\" file size is: ${FSIZE}\""
+    fi
+  fi
+
+  if [ ! -O $1 ]; then
+    echo -e "${USER} is not the owner of \"$1\"\n"
+  fi
+  if [ ! -G $1 ]; then
+    echo -e "${USER} is not among the owning group(s) for \"$1\"\n"
+  fi
+
+  permissions $1 "file"
+
+}
+
+```
+
+How it works
+* Files and directories can be owned. This means that they can have an owner (user) and groups associated with their ownership. For this, we can use the chown and chgrp commands.
+* Files and directories can have different permissions applied to them. This means that they may be executable, readable, writable, and/or everything. For this, we can use the chmod command and the appropriate permission setting.
+* Files and directories can also be empty.
+* The read command, which is used to wait for user input and read it into a variable. It is also useful for "pause" functionality in scripts.
+* Recursive functions. Notice that inside of the script unless it exits or the user presses ctl + C, the script keeps calling a particular function. This is recursion and it will continue unless stopped or a limit is applied.
+
+Output
+```
+# fileops/bobs.txt
+
+"fileops/bobs.txt" file size is: 11"
+rbrash is not the owner of "fileops/bobs.txt"
+
+rbrash is not among the owning group(s) for "fileops/bobs.txt"
+
+What are our permissions on this file?
+
+[R] Read
+
+What is the complete path of the file you want to inspect?
+ # fileops/write.txt
+
+"fileops/write.txt" is empty
+
+What are our permissions on this file?
+
+[W] Write
+
+What is the complete path of the file you want to inspect?
+ # fileops/exec.txt
+
+"fileops/exec.txt" is empty
+
+What are our permissions on this file?
+
+{X] Exec
+
+What is the complete path of the file you want to inspect?
+ # fileops/all.txt
+
+"fileops/all.txt" is empty
+
+What are our permissions on this file?
+
+[R] Read
+[W] Write
+{X] Exec
+
+What is the complete path of the file you want to inspect?
+ # fileops
+
+Directory "fileops" has children:
+
+all.txt
+bobs.txt
+empty.txt
+exec.txt
+read.txt
+string.txt
+swordinthestone.txt
+write.txt
+
+What are our permissions on this directory?
+
+[R] Read
+[W] Write
+{X] Exec
+
+What is the complete path of the file you want to inspect?
+ # thisDoesNotExist.txt
+
+Error: "thisDoesNotExist.txt" does not exist!
+$
+```
+
+## Searching for file by name and/or extension
+* locate (also a sibling of the updatedb command): Used to find files more efficiently using an index of files. The file index can be updated using the following command:
+```
+$ sudo updatedb
+```
+* find: Used to find files with specific attributes, extensions, and even names within a specific directory, [Note: Please be aware that your platform may not support all of GNU find's features. This may be the case with limited shells for embedding, resource constraints, or security reasons.]
+### Getting Ready
+```
+$ sudo apt-get install locate manpages manpages-posix
+$ sudo updatedb
+$ git clone https://github.com/PacktPublishing/Linux-Device-Drivers-Development.git Linux-Device-Drivers-Development # Another Packt title
+$ mkdir -p ~/emptydir/makesure
+```
+[Note:If a file is not found using the locate command, the database might be simply out of date and needs to be re-ran. It is possible that updatedb is also not indexing partitions such as those contained on removable media (USB sticks) ]
+
+Understand locate command
+```
+$ locate stdio.h
+$ sudo touch /usr/filethatlocatedoesntknow.txt /usr/filethatlocatedoesntknow2.txt
+$ sudo sh -c 'echo "My dear Watson ol\'boy" > /usr/filethatlocatedoesntknow.txt'
+$ locate filethatlocatedoes
+$ sudo updatedb
+$ locate filethatlocatedoesntknow
+```
+
+Understand find command
+```
+$ sudo find ${HOME} -name ".*" -ls
+$ sudo find / -type d -name ".git"
+$ find ${HOME} -type f \( -name "*.sh" -o -name "*.txt" \)
+```
+
+Chain find commands together with && and ultimately perform an exec instead of piping the output to another process
+```
+$ find . -type d -name ".git" && find . -name ".gitignore" && find . -name ".gitmodules"
+$ sudo find / -type f -exec grep -Hi 'My dear Watson ol boy' {} +
+```
+
+one of common uses to find is to delete file using either the built-in -delete flag or by using exec combined with rm -rm
+```
+$ find ~/emptydir -type d -empty -delete
+$ find Linux-Device-Drivers-Development -name ".git*" -exec rm -rf {} \;
+```
+At a minimum, the find command is executed this way: find  {START_SEARCH_HERE} {OPTIONAL_PARAMETERS ...}. We can chain the find commands together using this format: $ cmd 1 && cmd2 && cmd3 && .... This guarantees that if the proceeding command evaluates to true, then the next will execute and so on.
