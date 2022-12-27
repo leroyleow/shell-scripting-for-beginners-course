@@ -55,3 +55,5 @@ These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/c
   - [03-Program-Flags-With-Getopts](docs/06-Architecture/03-Program-Flags-With-Getopts.md)
   - [04-Search-Pattern-In-Files-Directories](docs/06-Architecture/04-Search-Pattern-In-File-Directories.md)
   - [05-Make-A-Script-Behave-Like-A-Daemon](docs/06-Architecture/05-Make-A-Script-Behave-Like-A-Daemon.md)
+  - [06-Scripts-For-System-Admin](docs/06-Architecture/06-Scripts-For-System-Admin.md)
+  - [07-Scripts-For-Power-Users](docs/06-Architecture/06-Scripts-For-Power-Users.md)
