@@ -1,4 +1,4 @@
-# The Linux Basics Course
+# Shell Scripting For Beginner
 
 These are notes from the [Shell Scripting for Beginners](https://kodekloud.com/courses/shell-scripts-for-beginners/) hosted on KodeKloud.
 
