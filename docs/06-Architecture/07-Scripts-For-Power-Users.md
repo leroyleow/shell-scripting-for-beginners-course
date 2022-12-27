@@ -133,3 +133,67 @@ exit 0
 ```
 How it works...
 When we run this script, it will create a database file named filerec.md5, which will have data about all the files present in that directory. We'll use those files for reference.
+
+## Encrypting/decrypting files from a script
+
+How to do it...
+1. We are going to encrypt and decrypt simple messages, using -base64 scheme. First encrypt the message.
+```
+$ echo "Welcome to Bash Cookbook" | openssl enc -base64
+```
+
+2. To decrypt message, run following command in the terminal
+```
+$ echo " V2VsY29tZSB0byBCYXNoIENvb2tib29rCg==" | openssl enc -base64 -d
+```
+
+3. Now going to encrypt and decrypt files. First, we will encrypt a file. 
+```
+$ openssl enc -aes-256-cbc -in /etc/services -out enc_services.dat
+```
+
+4. Decrypt a file
+```
+$ openssl enc -aes-256-cbc -d -in enc_services.dat > services.txt
+```
+
+How it works...
+OpenSSL is a tool used for encrypting and decrypting messages, files, and directories. In the preceding example, we used the -base64 scheme. The -d option is used for decryption.
+
+To encrypt a file, we used the -in option, followed by the file that we want to encrypt, and the -out option instructed OpenSSL to store the file. It then stores the encrypted file by the specified name.
+
+## Creating a config file and using it in tandem with your scripts
+
+How to do it...
+Now, we are going to create a script and config file. The extension of the configuration file is .conf. Create a script called sample_script.sh and write this code in it:
+```
+#!/bin/bash
+typeset -A config
+config=(
+    [username]="student"
+    [password]=""
+    [hostname]="ubuntu"
+)
+while read line
+do
+    if echo $line | grep -F = &>/dev/null
+    then
+        varname=$(echo "$line" | cut -d '=' -f 1)
+        config[$varname]=$(echo "$line" | cut -d '=' -f 2-)
+    fi
+done < sampleconfig.conf
+echo ${config[username]}
+echo ${config[password]}
+echo ${config[hostname]}
+echo ${config[PROMPT_COMMAND]}
+```
+We will now create a configuration file. Create a file called sampleconfig.conf and write the following code in it:
+```
+password=training
+echo rm -rf /
+PROMPT_COMMAND='ls -l'
+hostname=ubuntu; echo rm -rf /
+```
+
+How it works...
+After running the script username, password, and hostname, it will display the command we mentioned in  PROMPT_COMMAND.
